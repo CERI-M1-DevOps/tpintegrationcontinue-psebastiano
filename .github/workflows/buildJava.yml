@@ -19,6 +19,12 @@ jobs:
           distribution: corretto
           java-version: 21
 
+      - name: Mettre en cache les dépendances Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+
       - name: Build + Analyse avec SonarCloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
